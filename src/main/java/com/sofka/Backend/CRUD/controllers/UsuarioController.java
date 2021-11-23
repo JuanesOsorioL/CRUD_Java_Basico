@@ -39,5 +39,11 @@ public class UsuarioController {
         boolean ok= this.usuarioService.eliminarUsuario(id);
         return (ok)?"se elimino usuario con id "+id:"No se elimino usuario con id "+id;
     }
+
+    @GetMapping(path="/search")
+    public UsuarioModel buscarPorEmail(@RequestParam("email")String email){
+        System.out.println("entra");
+        return this.usuarioService.obtenerUsuarioPorEmail(email);
+    }
 }
 

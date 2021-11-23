@@ -37,5 +37,10 @@ public class UsuarioService {
             return false;
         }
     }
+
+    public UsuarioModel obtenerUsuarioPorEmail(String email){
+        return usuarioRepositiry.findByEmail(email);
+    }
+
 }
 
