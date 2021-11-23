@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class UsuarioService {
@@ -46,12 +45,11 @@ public class UsuarioService {
 
 
     public ResponseEntity<UsuarioModel> actualizarPrioridadporId(UsuarioModel usuario){
-        Optional<UsuarioModel> user =usuarioRepositiry.findById(usuario.getId());
-        if (user.isPresent()){
-            UsuarioModel us=user.get();
-            us.setPrioridad(usuario.getPrioridad());
-            usuarioRepositiry.save(us);
-            return ResponseEntity.ok(us);
+        if (usuarioRepositiry.existsById(usuario.getId())){
+            Optional<UsuarioModel> usuarioId = obtenerPorId(usuario.getId());
+            usuarioId.get().setPrioridad(usuario.getPrioridad());
+            guardarUsuario(usuarioId.get());
+            return ResponseEntity.ok(usuarioId.get());
         }else{
             return ResponseEntity.notFound().build();
         }
