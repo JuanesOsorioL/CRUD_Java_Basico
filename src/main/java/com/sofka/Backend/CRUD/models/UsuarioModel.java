@@ -11,7 +11,6 @@ public class UsuarioModel {
     @Column(unique = true,nullable = false)//unico y que no puede ser nulo
     private Long id;
 
-    
     private String nombre;
     private String email;
     private Integer prioridad;
