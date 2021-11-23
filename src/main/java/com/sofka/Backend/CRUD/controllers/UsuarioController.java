@@ -1,26 +1,46 @@
 package com.sofka.Backend.CRUD.controllers;
 
 import com.sofka.Backend.CRUD.models.UsuarioModel;
-import com.sofka.Backend.CRUD.repositories.UsuarioRepository;
 import com.sofka.Backend.CRUD.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuario")//en que direccion del servidor se activaran los metodos de esta clase
+@RequestMapping("/usuario")
 public class UsuarioController {
-    @Autowired //no es necesario instanciar ya spring sabe
+    @Autowired
     UsuarioService usuarioService ;
 
-    @GetMapping()//peticiones get
+    @GetMapping()
     public ArrayList<UsuarioModel> obtenerUsuarios(){
         return usuarioService.obtenerUsuarios();
     }
 
-    @PostMapping()//peticionespost
+    @PostMapping()
     public UsuarioModel guardarUsuarios(@RequestBody UsuarioModel usuario){
         return this.usuarioService.guardarUsuario(usuario);
     }
+
+    @GetMapping(path = "/{id}")
+    public Optional<UsuarioModel> obtenerUsuarioPorId(@PathVariable("id")Long id){
+        return this.usuarioService.obtenerPorId(id);
+    }
+
+    @GetMapping(path = "/query")
+    public ArrayList<UsuarioModel> obtenerUsuarioPorPrioridad(@RequestParam("prioridad")Integer prioridad){
+        return this.usuarioService.obtenerPorPrioridad(prioridad);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String eliminarPorId(@PathVariable("id")Long id){
+        boolean ok= this.usuarioService.eliminarUsuario(id);
+        if (ok)
+            return "se elimino usuario con id "+id;
+        else
+            return "No se elimino usuario con id "+id;
+    }
 }
+

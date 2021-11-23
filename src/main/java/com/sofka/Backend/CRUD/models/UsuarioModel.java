@@ -2,13 +2,13 @@ package com.sofka.Backend.CRUD.models;
 
 import javax.persistence.*;
 
-@Entity//modelo real
-@Table(name="usuario")//nombre de la tabla
+@Entity
+@Table(name="usuario")
 public class UsuarioModel {
 
-    @Id//clave primaria
-    @GeneratedValue(strategy =GenerationType.IDENTITY)//se genera automaticamente y es autoincrementrable
-    @Column(unique = true,nullable = false)//unico y que no puede ser nulo
+    @Id
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @Column(unique = true,nullable = false)
     private Long id;
 
     private String nombre;
