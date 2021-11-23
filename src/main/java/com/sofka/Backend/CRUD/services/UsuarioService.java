@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -21,4 +22,27 @@ public class UsuarioService {
     public UsuarioModel guardarUsuario(UsuarioModel usuario){
         return usuarioRepositiry.save(usuario);
     }
+
+    //buscar por ID
+    public Optional<UsuarioModel> obtenerPorId(Long id){//como el metodo puede fallar se crea como optional
+        return usuarioRepositiry.findById(id);
+    }
+
+    //buscar por prioridad
+    public ArrayList<UsuarioModel> obtenerPorPrioridad(Integer prioridad){
+        return usuarioRepositiry.findByPrioridad(prioridad);
+    }
+
+    //eliminar por id
+    public boolean eliminarUsuario(Long id){//el metodo defaul no devuelve nada y si algo falla gener error por eso en yun try
+        try {
+            usuarioRepositiry.deleteById(id);
+            return true;
+        }catch (Exception err){
+            return false;
+        }
+    }
+
+
+
 }
