@@ -3,6 +3,7 @@ package com.sofka.Backend.CRUD.controllers;
 import com.sofka.Backend.CRUD.models.UsuarioModel;
 import com.sofka.Backend.CRUD.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,8 +43,13 @@ public class UsuarioController {
 
     @GetMapping(path="/search")
     public UsuarioModel buscarPorEmail(@RequestParam("email")String email){
-        System.out.println("entra");
         return this.usuarioService.obtenerUsuarioPorEmail(email);
     }
+
+    @PutMapping()
+    public ResponseEntity<UsuarioModel> actualizarPrioridadPorId(@RequestBody UsuarioModel usuario) {
+        return this.usuarioService.actualizarPrioridadporId(usuario);
+    }
+
 }
 
